@@ -1,7 +1,4 @@
-exports.run = async (message, args) => {
-    const {Player} = require('discord-player');
-    const player = new Player(message.client);
-
+exports.run = async(player, message, args) => {
     if(!message.member.voice.channelId) return await message.reply("You are not in a voice channel");
     const queue = player.createQueue(message.guild, {
         ytdlOptions: {
@@ -19,9 +16,13 @@ exports.run = async (message, args) => {
         queue.destroy();
         return await message.reply("Could not join your voice channel!");
     }
-    const track = await player.search(args.join(" "), {
+    const searchResult = await player.search(args.join(" "), {
         requestedBy: message.author,
-    }).then(x => x.tracks[0]);
-    if(!track) return await message.reply("No results found");
-    queue.play(track);
+    })
+    if(!searchResult) return await message.reply("No results found");
+    
+    searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
+    if (!queue.playing) await queue.play();
+    
+    return await message.reply({ content: `🎶 | Added ${searchResult.playlist ? "playlist" : "track"} to the queue!`, ephemeral: true });
 }

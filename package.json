@@ -20,7 +20,7 @@
   "homepage": "https://github.com/GaugeMage/the-living-throne-bot#readme",
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
-    "discord-player": "^5.1.0",
+    "discord-player": "^5.4.0",
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "ffmpeg-static": "^5.1.0",
