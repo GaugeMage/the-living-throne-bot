@@ -2,10 +2,19 @@ require('dotenv').config();
 
 const {Client, Partials, ApplicationCommandOptionType} = require('discord.js');
 const {Player} = require('discord-player');
+const { VoiceConnectionStatus } = require('@discordjs/voice');
 
 const client = new Client({intents: 65531, partials: [Partials.Channel, Partials.Message]});
 const PREFIX = process.env.PREFIX;
 const player = new Player(client);
+
+player.on('connectionCreate', (queue) => {
+    queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
+        if (oldState.status === VoiceConnectionStatus.Ready && newState.status === VoiceConnectionStatus.Connecting) {
+            queue.connection.voiceConnection.configureNetworking();
+        }
+    })
+});
 
 client.on('ready', async() => {
     console.log(`${client.user.tag} has logged in`);
