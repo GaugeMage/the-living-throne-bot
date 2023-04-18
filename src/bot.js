@@ -101,6 +101,8 @@ client.on('messageCreate', async(message) => {
             return
         }
 
+        console.log(`${message.author.tag} in #${message.channel.name} sent: ${message.content}`);
+
         if(message.content.startsWith(PREFIX)){
             const [CMD_NAME, ...args] = message.content.substring(PREFIX.length).trim().split(/\s+/);
 
