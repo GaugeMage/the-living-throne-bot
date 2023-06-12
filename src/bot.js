@@ -116,11 +116,11 @@ client.on('messageCreate', async(message) => {
             } else if(CMD_NAME === 'randChar' || CMD_NAME === 'RandChar'){
                 require('./commands/roller/randChar.js').run(message);
             } else if(CMD_NAME === 'play' || CMD_NAME === 'Play'){
-                require('./commands/music/play.js').run(player, message, args);
+                require('./commands/music/play.js').run(message, args);
             } else if(CMD_NAME === 'skip' || CMD_NAME === 'Skip'){
-                require('./commands/music/skip.js').run(player, message);
+                require('./commands/music/skip.js').run(message);
             } else if(CMD_NAME === 'stop' || CMD_NAME === 'Stop'){
-                require('./commands/music/stop.js').run(player, message);
+                require('./commands/music/stop.js').run(message);
             } else if(CMD_NAME === 'queue' || CMD_NAME === 'Queue'){
                 require('./commands/music/queue.js').run(player, message);
             } else if(CMD_NAME === 'clear' || CMD_NAME === 'Clear'){
@@ -132,7 +132,7 @@ client.on('messageCreate', async(message) => {
             } else if(CMD_NAME === 'shuffle' || CMD_NAME === 'Shuffle'){
                 require('./commands/music/shuffle.js').run(player, message);
             } else if(CMD_NAME === 'loop' || CMD_NAME === 'Loop'){
-                require('./commands/music/loop.js').run(player, message);
+                require('./commands/music/loop.js').run(message);
             }
         }
 
@@ -150,13 +150,13 @@ client.on('interactionCreate', async(interaction) => {
             } else if(commandName === 'randchar'){
                 require('./commands/roller/randChar.js').run(interaction);
             } else if(commandName === 'play'){
-                require('./commands/music/play.js').run(player, interaction, [options.getString('query')]);
+                require('./commands/music/play.js').run(interaction, [options.getString('query')]);
             } else if(commandName === 'skip'){
-                require('./commands/music/skip.js').run(player, interaction);
+                require('./commands/music/skip.js').run(interaction);
             } else if(commandName === 'stop'){
-                require('./commands/music/stop.js').run(player, interaction);
+                require('./commands/music/stop.js').run(interaction);
             } else if(commandName === 'queue'){
-                require('./commands/music/queue.js').run(player, interaction);
+                require('./commands/music/queue.js').run(interaction);
             } else if(commandName === 'clear'){
                 require('./commands/music/clear.js').run(player, interaction);
             } else if(commandName === 'pause'){
@@ -166,7 +166,7 @@ client.on('interactionCreate', async(interaction) => {
             } else if(commandName == 'shuffle'){
                 require('./commands/music/shuffle.js').run(player, interaction);
             } else if(commandName == 'loop'){
-                require('./commands/music/loop.js').run(player, interaction);
+                require('./commands/music/loop.js').run(interaction);
             }
         }
 
