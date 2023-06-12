@@ -22,6 +22,7 @@
     "@discordjs/opus": "^0.8.0",
     "@discordjs/voice": "0.16.0",
     "@discord-player/extractor": "^4.2.1",
+    "@sapphire/discord.js-utilities": "^6.1.0",
     "discord-player": "^6.3.0",
     "@distube/ytdl-core": "^4.11.9",
     "discord.js": "^14.7.1",
