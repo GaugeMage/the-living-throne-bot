@@ -1,6 +1,24 @@
-exports.run = async(player, message) => {
-    const queue = player.getQueue(message.guild);
-    if(!queue || !queue.playing) return await message.reply("No music is being played");
-    queue.setRepeatMode(queue.repeatMode ? 0 : 2);
-    return await message.reply({ content: queue.repeatMode ? "🔁 | Repeating the queue!" : "❌ | Not repeating the queue!", ephemeral: true });
+const {useQueue, QueueRepeatMode} = require("discord-player");
+
+const repeatModes = [
+	{ name: 'Off', value: QueueRepeatMode.OFF },
+	{ name: 'Track', value: QueueRepeatMode.TRACK },
+	{ name: 'Queue', value: QueueRepeatMode.QUEUE },
+	{ name: 'Autoplay', value: QueueRepeatMode.AUTOPLAY }
+];
+
+exports.run = async(interaction) => {
+    const queue = useQueue(interaction.guild.id);
+
+    if(!queue){
+        return await interaction.reply("There is no queue for this guild");
+    }
+
+    if(!queue.currentTrack){
+		return interaction.reply({ content: `There is no track **currently** playing`, ephemeral: true });
+    }
+
+    await queue.repeatMode === 0 ? queue.setRepeatMode(2) : queue.setRepeatMode(0);
+
+    return await interaction.reply(`Repeat mode set to ${repeatModes[queue.repeatMode].name}`);
 }

@@ -1,29 +1,21 @@
-exports.run = async(player, message, args) => {
+const { useMasterPlayer } = require("discord-player");
+
+exports.run = async(message, args) => {
     if(!message.member.voice.channelId) return await message.reply("You are not in a voice channel");
-    
-    const queue = player.createQueue(message.guild, {
-        ytdlOptions: {
-            filter: "audioonly",
-            highWaterMark: 1 << 30,
-            dlChunkSize: 0,
-        },
-        metaData: {
-            channel: message.channel,
-        }
-    });
+    const player = useMasterPlayer();
+
+    const channel = message.member.voice.channel;
+
     try {
-        if(!queue.connection) await queue.connect(message.member.voice.channel);
-    } catch {
-        queue.destroy();
-        return await message.reply("Could not join your voice channel!");
+        const { track } = await player.play(channel, args.join(" "), {
+            nodeOptions: {
+                // nodeOptions are the options for guild node (aka your queue in simple word)
+                metadata: message // we can access this metadata object using queue.metadata later on
+            }
+        });
+ 
+        return message.reply(`**${track.title}** now playing!`);
+    } catch (e) {
+        console.log(e);
     }
-    const searchResult = await player.search(args.join(" "), {
-        requestedBy: message.author,
-    })
-    if(!searchResult) return await message.reply("No results found");
-    
-    searchResult.playlist ? queue.addTracks(searchResult.tracks) : queue.addTrack(searchResult.tracks[0]);
-    if (!queue.playing) await queue.play();
-    
-    return await message.reply({ content: `🎶 | Added ${searchResult.playlist ? "playlist" : "track"} to the queue!`, ephemeral: true });
 }
