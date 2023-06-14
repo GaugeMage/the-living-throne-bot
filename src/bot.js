@@ -23,9 +23,9 @@ player.on('connectionCreate', (queue) => {
 client.on('ready', async() => {
     console.log(`${client.user.tag} has logged in`);
 
-    let commands = client.application?.commands;
-
     await player.extractors.register(YoutubeExtractor, {});
+
+    let commands = client.application?.commands;
 
     commands?.create({
         name: 'roll',
