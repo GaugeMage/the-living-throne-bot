@@ -18,7 +18,7 @@ player.on('connectionCreate', (queue) => {
     })
 });
 
-player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
+// player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
 
 client.on('ready', async() => {
     console.log(`${client.user.tag} has logged in`);
