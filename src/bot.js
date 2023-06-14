@@ -18,6 +18,23 @@ player.on('connectionCreate', (queue) => {
     })
 });
 
+player.events.on('audioTrackAdd', (queue, track) => {
+    if(queue.node.isPlaying()){
+        queue.metadata.channel.send(`Added to the queue ${track.title}`)
+    } else {
+        queue.metadata.channel.send(`Track **${track.title}** queued`);
+    }
+});
+
+player.events.on('audioTracksAdd', (queue, track) => {
+    if(queue.node.isPlaying()){
+        queue.metadata.channel.send(`Playlist added ${track.title}`)
+    } else {
+        queue.metadata.channel.send(`Playlist starts from title: ${track.title}`);
+    }
+});
+
+
 // player.on("trackStart", (queue, track) => queue.metadata.channel.send(`🎶 | Now playing **${track.title}**!`));
 
 client.on('ready', async() => {
