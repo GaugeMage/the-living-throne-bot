@@ -5,7 +5,8 @@ exports.run = async(message, args) => {
     if(!message.member.voice.channelId) return await message.reply("You are not in a voice channel");
     const player = useMasterPlayer();
 
-    player.extractors.register(YoutubeExtractor, {})
+    // player.extractors.register(YoutubeExtractor, {})
+    player.extractors.loadDefault();
 
     const channel = message.member.voice.channel;
 
