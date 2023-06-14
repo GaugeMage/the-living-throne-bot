@@ -20,7 +20,7 @@ exports.run = async(message, args) => {
                 await message.reply(`Enqueuing playlist \`${res.playlist.name}\` with ${res.tracks.length} tracks`);
             }
 
-            await res.playlist ? player.play(message, res.tracks[0], res.playlist) : player.play(message, res.tracks[0]);
+            await res.playlist ? player.play(channel, res.tracks[0], res.playlist) : player.play(channel, res.tracks[0]);
         });
     } catch (e) {
         console.log(e);
