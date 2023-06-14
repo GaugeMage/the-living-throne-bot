@@ -13,11 +13,14 @@ exports.run = async(message, args) => {
         await player.search(args.join(" "), {
             requestedBy: message.author,
             searchEngine: `ext:${YouTubeExtractor.identifier}`
-        }, channel).then(x => x.tracks)
+        }, channel).then(async res => {
+            if(!res || !res.tracks.length) return await message.reply("No results were found");
 
-        //Play the song
-        await player.play(message.guild.id, x[0], {
-            firstResult: true
+            if(res.playlist){
+                await message.reply(`Enqueuing playlist \`${res.playlist.name}\` with ${res.tracks.length} tracks`);
+            }
+
+            await res.playlist ? player.play(message, res.tracks[0], res.playlist) : player.play(message, res.tracks[0]);
         });
     } catch (e) {
         console.log(e);
