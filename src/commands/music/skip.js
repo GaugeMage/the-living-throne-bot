@@ -9,5 +9,5 @@ exports.run = async(message, args) => {
     if(!queue.currentTrack) return await message.reply("There is no track playing");
 
     queue.node.skip();
-    message.reply("Skipped!");
+    await message.reply("Skipped!");
 }

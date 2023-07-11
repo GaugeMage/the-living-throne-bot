@@ -14,7 +14,7 @@ exports.run = async(message, args) => {
             }
         });
  
-        return message.reply(`**${track.title}** now playing!`);
+        // return await message.reply(`**${track.title}** now playing!`);
     } catch (e) {
         console.log(e);
     }

@@ -1,6 +1,16 @@
-exports.run = async(player, message) => {
-    const queue = player.getQueue(message.guild);
-    if(!queue || !queue.playing) return await message.reply("No music is being played");
-    const success = queue.setPaused(true);
-    return await message.reply(success ? "Paused the music" : "Something went wrong");
+const {useQueue} = require("discord-player");
+
+exports.run = async(message) => {
+    //Pause command
+    if(!message.member.voice.channelId) return await message.reply("You are not in a voice channel");
+
+    const queue = useQueue(message.guild.id);
+
+    if(!queue) return await message.reply("There is no queue for this guild");
+
+    if(!queue.currentTrack) return await message.reply("There is no track playing");
+    
+    queue.node.setPaused(true);
+
+    message.reply("Paused!");
 }

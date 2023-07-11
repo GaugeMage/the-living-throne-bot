@@ -101,9 +101,7 @@ client.on('ready', async() => {
 
 client.on('messageCreate', async(message) => {
     try {
-        
-        console.log(`${message.author.tag} in #${message.channel.name} sent: ${message.content}`);
-
+        console.log(`${message.author.tag} in #${message.channel.name} in ${message.guild.name} sent: ${message.content}`);
         if(message.author.bot){
             return
         }
@@ -160,7 +158,7 @@ client.on('interactionCreate', async(interaction) => {
             } else if(commandName === 'clear'){
                 require('./commands/music/clear.js').run(player, interaction);
             } else if(commandName === 'pause'){
-                require('./commands/music/pause.js').run(player, interaction);
+                require('./commands/music/pause.js').run(interaction);
             } else if(commandName === 'resume'){
                 require('./commands/music/resume.js').run(player, interaction);
             } else if(commandName == 'shuffle'){

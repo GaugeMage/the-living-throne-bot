@@ -2,9 +2,21 @@ exports.run = async(message, args) => {
     try {
         require('../../helpers/checkArgs').run(args, message);
 
+        //Check if the string has a d in it
+        if(!args[0].includes('d')){
+            return message.reply("Invalid dice format. Please use the format `XdY` where X is the number of dice and Y is the type of dice");
+        }
+
         //Split the string after d
         const temp = args[0].split('d');
         const temp2 = temp[1].split('+');
+        const temp3 = temp[1].split('-');
+
+        //Check if there is a + or - in the string
+        if(temp3[1]){
+            temp2[0] = temp3[0];
+            temp2[1] = `-${temp3[1]}`;
+        }
         //Get the number of dice. If there is no number, assume 1
         const diceAmount = temp[0] ? Number(temp[0]) : 1;
         //Get the dice type
