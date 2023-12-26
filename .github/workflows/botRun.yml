@@ -3,7 +3,7 @@ name: botRun
 on:
     workflow_dispatch:
     schedule:
-        - cron: "*/10 * * * *"
+        - cron: "0 0 * * *"
 
 jobs:
     # run. Keep in mind that we are using node.js v16.16.0
