@@ -1,4 +1,4 @@
-name: run
+name: development
 
 on:
     workflow_dispatch:
