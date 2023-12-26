@@ -29,7 +29,7 @@ jobs:
       - name: "📦 install dependencies"
         uses: bahmutov/npm-install@v1
 
-      - name: "🔍 run"
+      - name: "🔍 run tests"
         run: npm run dev
 
   lint:
