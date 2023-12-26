@@ -1,12 +1,17 @@
-name: botRun
+name: run
 
 on:
     workflow_dispatch:
+    # Make it so it runs if bot crashes
+    workflow_run:
+        workflows: ["run"]
+        types: [completed]
 
 jobs:
     # run. Keep in mind that we are using node.js v16.16.0
     run:
         runs-on: ubuntu-latest
+
         steps:
             - uses: actions/checkout@v2
             - name: Use Node.js 16.16.0
