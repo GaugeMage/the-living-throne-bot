@@ -11,7 +11,7 @@ exports.run = async(message) => {
     //Scott troll: https://youtu.be/GSjlxbxAymM?si=8HJ7TRmQkHgv0xcI
     // Don't trust a hoe: https://youtu.be/GSjlxbxAymM?si=Fvmog_xY0MkEE9cx
     const song = "https://youtu.be/GSjlxbxAymM?si=Fvmog_xY0MkEE9cx"
-
+ 
     try {
         //Play rick roll:
         const { track } = await player.play(channel, song, {
