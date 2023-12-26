@@ -5,6 +5,8 @@ const {Player} = require('discord-player');
 const { VoiceConnectionStatus } = require('@discordjs/voice');
 const {YoutubeExtractor} = require('@discord-player/extractor')
 
+const {ChannelType} = require('discord.js');
+
 const client = new Client({intents: 65531, partials: [Partials.Channel, Partials.Message]});
 const PREFIX = process.env.PREFIX;
 const player = new Player(client);
@@ -101,7 +103,10 @@ client.on('ready', async() => {
 
 client.on('messageCreate', async(message) => {
     try {
-        console.log(`${message.author.tag} in #${message.channel.name} in ${message.guild.name} sent: ${message.content}`);
+        //If channel id is 958060354670301224 or if it is a DM channel don't log
+        if(message.channel.id != '958060354670301224' && message.channel.type != ChannelType.DM){
+            console.log(`${message.createdAt.toTimeString()} ${message.author.tag} in #${message.channel.name} in ${message.guild.name} sent: ${message.content}`);
+        }
         if(message.author.bot){
             return
         }
@@ -131,6 +136,8 @@ client.on('messageCreate', async(message) => {
                 require('./commands/music/shuffle.js').run(player, message);
             } else if(CMD_NAME === 'loop' || CMD_NAME === 'Loop'){
                 require('./commands/music/loop.js').run(message);
+            } else if(CMD_NAME === 'rickRoll'){
+                require('./commands/music/rickRoll.js').run(message);
             }
         }
 
@@ -143,6 +150,9 @@ client.on('interactionCreate', async(interaction) => {
     try {
         if(interaction.isCommand()){
             const {commandName, options} = interaction;
+
+            console.log(`${interaction.user.tag} in #${interaction.channel.name} in ${interaction.guild.name} used: ${commandName}`);
+
             if(commandName === 'roll'){
                 require('./commands/roller/roll.js').run(interaction, [options.getString('dice')]);
             } else if(commandName === 'randchar'){

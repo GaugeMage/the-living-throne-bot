@@ -1,8 +1,8 @@
-const { useMasterPlayer } = require("discord-player");
+const { useMainPlayer } = require("discord-player");
 
 exports.run = async(message, args) => {
     if(!message.member.voice.channelId) return await message.reply("You are not in a voice channel");
-    const player = useMasterPlayer();
+    const player = useMainPlayer();
 
     const channel = message.member.voice.channel;
 
@@ -13,8 +13,10 @@ exports.run = async(message, args) => {
                 metadata: message // we can access this metadata object using queue.metadata later on
             }
         });
- 
-        // return await message.reply(`**${track.title}** now playing!`);
+        
+        //Print the track title and url in console
+        console.log(`Song used in play: ${track.title} [${track.url}]`);
+        return await message.reply(`**${track.title}** now playing!`);
     } catch (e) {
         console.log(e);
     }
