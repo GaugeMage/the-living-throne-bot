@@ -9,7 +9,7 @@ on:
 
 jobs:
   run:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout code
@@ -25,4 +25,4 @@ jobs:
 
       - name: Run bot
         run: |
-          npm start | tee /dev/tty
+          npm start | Tee-Object -FilePath $null
