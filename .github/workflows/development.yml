@@ -6,6 +6,9 @@ on:
     workflows: ["run"]
     branches: [master]
     types: [completed]
+  # make it so it runs on push to master
+  push:
+    branches: [master]
 
 jobs:
   run:
