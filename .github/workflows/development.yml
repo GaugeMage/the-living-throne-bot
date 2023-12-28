@@ -9,6 +9,9 @@ on:
   # make it so it runs on push to master
   push:
     branches: [master]
+  # make it so it runs every 5 hours
+  schedule:
+    - cron: "0 */5 * * *"
 
 jobs:
   run:
