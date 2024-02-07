@@ -23,6 +23,9 @@ jobs:
 
       - name: Create environment file
         run: echo "DISCORDJS_BOT_TOKEN=${{ env.DISCORDJS_BOT_TOKEN }}" > .env
+      
+      - name: Show environment file
+        run: cat .env
 
       - name: Use Node.js 16.16.0
         uses: actions/setup-node@v2
