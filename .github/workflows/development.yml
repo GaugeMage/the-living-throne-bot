@@ -21,6 +21,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Create environment file
+        run: echo "DISCORDJS_BOT_TOKEN=${{ env.DISCORDJS_BOT_TOKEN }}" > .env
+
       - name: Use Node.js 16.16.0
         uses: actions/setup-node@v2
         with:

@@ -8,7 +8,7 @@ const {YoutubeExtractor} = require('@discord-player/extractor')
 const {ChannelType} = require('discord.js');
 
 const client = new Client({intents: 65531, partials: [Partials.Channel, Partials.Message]});
-const PREFIX = process.env.PREFIX;
+const PREFIX = "throne?"
 const player = new Player(client);
 
 
@@ -103,6 +103,8 @@ client.on('ready', async() => {
 
 client.on('messageCreate', async(message) => {
     try {
+        //Make it's status invisible
+        client.user.setPresence({status: 'online'});
         //If channel id is 958060354670301224 or if it is a DM channel don't log
         if(message.channel.id != '958060354670301224' && message.channel.type != ChannelType.DM){
             console.log(`${message.createdAt.toTimeString()} ${message.author.tag} in #${message.channel.name} in ${message.guild.name} sent: ${message.content}`);
