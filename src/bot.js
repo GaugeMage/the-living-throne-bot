@@ -3,13 +3,15 @@ require('dotenv').config();
 const {Client, Partials, ApplicationCommandOptionType} = require('discord.js');
 const {Player} = require('discord-player');
 const { VoiceConnectionStatus } = require('@discordjs/voice');
-const {YoutubeExtractor} = require('@discord-player/extractor')
+const {YoutubeiExtractor} = require("discord-player-youtubei")
 
 const {ChannelType} = require('discord.js');
 
 const client = new Client({intents: 65531, partials: [Partials.Channel, Partials.Message]});
 const PREFIX = "throne?"
 const player = new Player(client);
+
+player.extractors.register(YoutubeiExtractor, {});
 
 
 player.on('connectionCreate', (queue) => {
@@ -24,8 +26,6 @@ player.on('connectionCreate', (queue) => {
 
 client.on('ready', async() => {
     console.log(`${client.user.tag} has logged in`);
-
-    await player.extractors.register(YoutubeExtractor, {});
 
     let commands = client.application?.commands;
 
@@ -140,6 +140,23 @@ client.on('messageCreate', async(message) => {
                 require('./commands/music/loop.js').run(message);
             } else if(CMD_NAME === 'rickRoll'){
                 require('./commands/music/rickRoll.js').run(message);
+            } else if(CMD_NAME === 'checkGuilds'){
+                //Command that prints out all the guilds the bot is in
+                client.guilds.cache.forEach((guild) => {
+                    console.log(guild.name + ' ' + guild.id);
+                });
+            } else if(CMD_NAME === 'checkGuildUser'){
+                //Command that prints out all the users and their ids of a guild given that guildID
+                const guild = client.guilds.cache.get(args[0]);
+                guild.members.cache.forEach((member) => {
+                    console.log(`${member.user.tag} ${member.id}`);
+                });
+            } else if(CMD_NAME === 'checkGuildChannels'){
+                //Command that prints out all the channels and their ids of a guild given that guildID
+                const guild = client.guilds.cache.get(args[0]);
+                guild.channels.cache.forEach((channel) => {
+                    console.log(`${channel.name} ${channel.id}`);
+                });
             }
         }
 

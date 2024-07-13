@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create environment file
-        run: echo "DISCORDJS_BOT_TOKEN=${{ secrets.DISCORDJS_BOT_TOKEN }}" > .env
+        run: echo "DISCORDJS_BOT_TOKEN=${{ env.DISCORDJS_BOT_TOKEN }}" > .env
       
       - name: Show environment file
         run: cat .env
