@@ -1,5 +1,5 @@
 exports.run = async(message) => {
-    //Rolls up a new character
+    //Rolls up a new character sheet
     let tempString = "";
     let totalValue = 0;
     for(let i = 0; i < 6; i++){
